@@ -32,6 +32,14 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Notify Success
       run: echo "docker login successfully successfully!"
-    - name: Show logged-in Docker username
-      run: docker info | grep Username
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        tags: mokchhedul/restaurant-frontend:latest
+        file: ./Dockerfile
+
+    - name: Success message
+      run: echo "Frontend Docker image built and pushed to Docker Hub!"
 
