@@ -32,3 +32,6 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Notify Success
       run: echo "docker login successfully successfully!"
+    - name: Show logged-in Docker username
+      run: docker info | grep Username
+
