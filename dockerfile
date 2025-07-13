@@ -19,7 +19,10 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copy build output to nginx 
-COPY --from=builder /app/next /usr/share/nginx/html
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
 
 # expose port 80
 EXPOSE 80
