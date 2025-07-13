@@ -17,3 +17,11 @@ jobs:
       uses: actions/checkout@v4
     - name: Notify Success
       run: echo "Docker image built and pushed successfully!"
+    - name: setup node js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+    - name: install dependencies
+      run: npm install
+    - name: Notify Success
+      run: echo "all dependency install successfully!"
