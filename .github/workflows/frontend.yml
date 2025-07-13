@@ -1,5 +1,3 @@
-
-
 name: frontend cicd
 
 on:
@@ -8,38 +6,35 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
-
     steps:
-    - name: checkout code    
+    - name: Checkout code    
       uses: actions/checkout@v4
-    - name: Notify Success
-      run: echo "Docker image built and pushed successfully!"
-    - name: setup node js
+
+    - name:  Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '20'
-    - name: install dependencies
+
+    - name:  Install dependencies
       run: npm install
-    - name: Notify Success
-      run: echo "all dependency install successfully!"
-    - name: Log in to Docker
+
+    - name:  Docker Login
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Notify Success
-      run: echo "docker login successfully successfully!"
-    - name: Build and push Docker image
+
+    - name:  Build & Push Docker image
       uses: docker/build-push-action@v4
       with:
         context: .
         push: true
-        tags: mokchhedul/restaurant-frontend:latest
+        tags: |
+          mokchhedul/restaurant-frontend:latest
+          mokchhedul/restaurant-frontend:${{ github.sha }}
         file: ./Dockerfile
 
-    - name: Success message
-      run: echo "Frontend Docker image built and pushed to Docker Hub!"
-
+    - name:  Final Success Message
+      run: echo "Frontend Docker image built and pushed to Docker Hub successfully!"
